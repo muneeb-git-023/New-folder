@@ -25,7 +25,10 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest -q
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          pytest -q
+        # ↑ Adds your repo root to Python path so `from app import app` works
 
       - name: Build Docker image
         run: docker build -t autodeployx:test .
